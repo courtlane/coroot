@@ -84,7 +84,7 @@
             <template #append>
                 <v-list dense class="ma-0 pa-0">
                     <v-divider class="ma-3" style="border-color: var(--border-dark)"></v-divider>
-                    <v-menu v-if="user" v-model="projectsMenu" dark right offset-x tile>
+                    <v-menu v-if="user" ref="projectsMenu" v-model="projectsMenu" dark right offset-x tile>
                         <template #activator="{ on }">
                             <v-list-item v-on="on">
                                 <v-list-item-icon class="mr-3">
@@ -413,6 +413,15 @@ export default {
                 }
             };
             this.$nextTick(() => requestAnimationFrame(() => requestAnimationFrame(() => focus(5))));
+        },
+        filteredProjects() {
+            // Vuetify 2 measures the menu only when it opens; re-measure so it docks to the "Project" button after filtering
+            this.$nextTick(() => {
+                const m = this.$refs.projectsMenu;
+                if (m && m.isActive) {
+                    m.updateDimensions();
+                }
+            });
         },
         $route: {
             handler(curr, prev) {
