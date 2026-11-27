@@ -100,7 +100,7 @@
                             </v-list-item>
                         </template>
                         <v-list dense class="pa-0">
-                            <div class="project-search" @click.stop @keydown="onProjectSearchKeydown">
+                            <div class="pa-2" @click.stop @keydown="onProjectSearchKeydown">
                                 <v-text-field
                                     ref="projectSearch"
                                     v-model="projectSearch"
@@ -416,12 +416,7 @@ export default {
         },
         filteredProjects() {
             // Vuetify 2 measures the menu only when it opens; re-measure so it docks to the "Project" button after filtering
-            this.$nextTick(() => {
-                const m = this.$refs.projectsMenu;
-                if (m && m.isActive) {
-                    m.updateDimensions();
-                }
-            });
+            this.$nextTick(this.$refs.projectsMenu?.updateDimensions);
         },
         $route: {
             handler(curr, prev) {
@@ -527,9 +522,6 @@ export default {
 .projects {
     max-height: 70vh;
     overflow-y: auto;
-}
-.project-search {
-    padding: 8px;
 }
 .badge:deep(.v-badge__badge) {
     height: 16px;
