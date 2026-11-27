@@ -84,7 +84,7 @@
             <template #append>
                 <v-list dense class="ma-0 pa-0">
                     <v-divider class="ma-3" style="border-color: var(--border-dark)"></v-divider>
-                    <v-menu v-if="user" dark right offset-x tile>
+                    <v-menu v-if="user" v-model="projectsMenu" dark right offset-x tile>
                         <template #activator="{ on }">
                             <v-list-item v-on="on">
                                 <v-list-item-icon class="mr-3">
@@ -100,10 +100,23 @@
                             </v-list-item>
                         </template>
                         <v-list dense class="pa-0">
+                            <div class="project-search" @click.stop @keydown="onProjectSearchKeydown">
+                                <v-text-field
+                                    ref="projectSearch"
+                                    v-model="projectSearch"
+                                    dense
+                                    outlined
+                                    hide-details
+                                    clearable
+                                    prepend-inner-icon="mdi-magnify"
+                                    placeholder="search"
+                                />
+                            </div>
                             <div class="projects">
-                                <v-list-item v-for="p in projects" :key="p.name" :to="{ name: 'overview', params: { projectId: p.id } }">
+                                <v-list-item v-for="p in filteredProjects" :key="p.name" :to="{ name: 'overview', params: { projectId: p.id } }">
                                     {{ p.name }}
                                 </v-list-item>
+                                <v-list-item v-if="normalizedProjectSearch && !filteredProjects.length" disabled>no matching projects</v-list-item>
                             </div>
                             <v-list-item v-if="!user.readonly" :to="{ name: 'project_new' }" exact>
                                 <v-icon small class="mr-1">mdi-plus</v-icon> new project
@@ -285,6 +298,8 @@ export default {
             apiKeys: false,
             menuCollapsed: menuCollapsed,
             search: false,
+            projectsMenu: false,
+            projectSearch: '',
             systemAlerts: [],
         };
     },
@@ -308,6 +323,16 @@ export default {
                 return [];
             }
             return this.user.projects || [];
+        },
+        normalizedProjectSearch() {
+            return (this.projectSearch || '').trim().toLowerCase();
+        },
+        filteredProjects() {
+            const q = this.normalizedProjectSearch;
+            if (!q) {
+                return this.projects;
+            }
+            return this.projects.filter((p) => p.name.toLowerCase().includes(q));
         },
         project() {
             const id = this.$route.params.projectId;
@@ -373,6 +398,22 @@ export default {
     },
 
     watch: {
+        projectsMenu(v) {
+            if (!v) {
+                this.projectSearch = '';
+                return;
+            }
+            // the menu content is displayed only after two animation frames (Vuetify 2), so focus after that
+            const focus = (n) => {
+                const f = this.$refs.projectSearch;
+                if (f && f.$el && f.$el.offsetParent !== null) {
+                    f.focus();
+                } else if (n > 0 && this.projectsMenu) {
+                    setTimeout(() => focus(n - 1), 50);
+                }
+            };
+            this.$nextTick(() => requestAnimationFrame(() => requestAnimationFrame(() => focus(5))));
+        },
         $route: {
             handler(curr, prev) {
                 this.getUser();
@@ -445,6 +486,12 @@ export default {
             this.menuCollapsed = !this.menuCollapsed;
             this.$storage.local('menu-collapsed', this.menuCollapsed);
         },
+        onProjectSearchKeydown(e) {
+            const searchShortcut = (e.metaKey || e.ctrlKey) && e.key === 'k';
+            if (e.key !== 'Escape' && e.key !== 'Tab' && !searchShortcut) {
+                e.stopPropagation();
+            }
+        },
         searchListener(e) {
             if (this.project && (e.metaKey || e.ctrlKey) && e.key === 'k') {
                 e.preventDefault();
@@ -471,6 +518,9 @@ export default {
 .projects {
     max-height: 70vh;
     overflow-y: auto;
+}
+.project-search {
+    padding: 8px;
 }
 .badge:deep(.v-badge__badge) {
     height: 16px;
