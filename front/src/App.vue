@@ -84,7 +84,7 @@
             <template #append>
                 <v-list dense class="ma-0 pa-0">
                     <v-divider class="ma-3" style="border-color: var(--border-dark)"></v-divider>
-                    <v-menu v-if="user" dark right offset-x tile>
+                    <v-menu v-if="user" dark right offset-x tile max-height="80vh">
                         <template #activator="{ on }">
                             <v-list-item v-on="on">
                                 <v-list-item-icon class="mr-3">
