@@ -84,7 +84,7 @@
             <template #append>
                 <v-list dense class="ma-0 pa-0">
                     <v-divider class="ma-3" style="border-color: var(--border-dark)"></v-divider>
-                    <v-menu v-if="user" dark right offset-x tile max-height="80vh">
+                    <v-menu v-if="user" dark right offset-x tile>
                         <template #activator="{ on }">
                             <v-list-item v-on="on">
                                 <v-list-item-icon class="mr-3">
@@ -100,9 +100,11 @@
                             </v-list-item>
                         </template>
                         <v-list dense class="pa-0">
-                            <v-list-item v-for="p in projects" :key="p.name" :to="{ name: 'overview', params: { projectId: p.id } }">
-                                {{ p.name }}
-                            </v-list-item>
+                            <div class="projects">
+                                <v-list-item v-for="p in projects" :key="p.name" :to="{ name: 'overview', params: { projectId: p.id } }">
+                                    {{ p.name }}
+                                </v-list-item>
+                            </div>
                             <v-list-item v-if="!user.readonly" :to="{ name: 'project_new' }" exact>
                                 <v-icon small class="mr-1">mdi-plus</v-icon> new project
                             </v-list-item>
@@ -466,6 +468,10 @@ export default {
 </script>
 
 <style scoped>
+.projects {
+    max-height: 70vh;
+    overflow-y: auto;
+}
 .badge:deep(.v-badge__badge) {
     height: 16px;
     min-width: 16px;
