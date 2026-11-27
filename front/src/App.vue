@@ -400,9 +400,10 @@ export default {
     watch: {
         projectsMenu(v) {
             if (!v) {
-                this.projectSearch = '';
                 return;
             }
+            // reset on open, not on close: otherwise the full list flashes during the closing animation
+            this.projectSearch = '';
             // the menu content is displayed only after two animation frames (Vuetify 2), so focus after that
             const focus = (n) => {
                 const f = this.$refs.projectSearch;
