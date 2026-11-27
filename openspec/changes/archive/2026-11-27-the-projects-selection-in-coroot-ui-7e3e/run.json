@@ -1,0 +1,344 @@
+{
+  "version": 2,
+  "id": "8d0fe976-81fb-43a2-a465-e5574fbf39e9",
+  "changeId": "the-projects-selection-in-coroot-ui-7e3e",
+  "title": "Прокрутка проектов и закреплённый пункт «new project»",
+  "task": "the projects selection in coroot UI still have no scrollbar when there are too many projects displayed and do not fit on the screen anymore. \nalso the create project button is not visible (at the bottom of the project list)",
+  "projectPath": "/home/oleg/git/coroot",
+  "worktreePath": "/home/oleg/.config/PurpleFlow/data/worktrees/coroot-the-projects-selection-in-coroot-ui-7e3e",
+  "branch": "purpleflow/the-projects-selection-in-coroot-ui-7e3e",
+  "baseCommit": "04f1f1d8a8bef84fe070e567461a8d65131ad53d",
+  "baseBranch": "main",
+  "testCommand": "go test ./...",
+  "lintCommand": "go vet ./...",
+  "mode": "task",
+  "workspace": "worktree",
+  "autopilot": true,
+  "envFiles": [],
+  "prepared": true,
+  "models": {
+    "planner": "opus",
+    "executor": "sonnet",
+    "reviewer": "opus",
+    "visual": "haiku",
+    "manager": "sonnet",
+    "scan": "haiku"
+  },
+  "agents": {
+    "planner": "claude",
+    "executor": "claude",
+    "reviewer": "claude",
+    "visual": "claude"
+  },
+  "status": "finished",
+  "next": "finish",
+  "attempts": [
+    {
+      "stage": "baseline",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:28:44.871Z",
+      "status": "done",
+      "endedAt": "2026-11-27T14:28:44.884Z",
+      "summary": "Красные до задачи: линтер"
+    },
+    {
+      "stage": "clarify",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:28:44.888Z",
+      "status": "done",
+      "model": "opus",
+      "tokens": {
+        "input": 6,
+        "output": 1138,
+        "cacheRead": 66924,
+        "cacheWrite": 20321,
+        "costUsd": 0.19873680000000002
+      },
+      "endedAt": "2026-11-27T14:29:00.086Z",
+      "summary": "Вопросов: 1"
+    },
+    {
+      "stage": "gate0",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:29:00.086Z",
+      "status": "done",
+      "endedAt": "2026-11-27T14:29:58.902Z",
+      "summary": "Ответов: 1"
+    },
+    {
+      "stage": "plan",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:29:58.966Z",
+      "status": "done",
+      "model": "opus",
+      "tokens": {
+        "input": 18,
+        "output": 7095,
+        "cacheRead": 293739,
+        "cacheWrite": 32596,
+        "costUsd": 0.4614878
+      },
+      "endedAt": "2026-11-27T14:31:15.420Z",
+      "summary": "Изменение OpenSpec `the-projects-selection-in-coroot-ui-7e3e` готово (`proposal.md`, `tasks.md`, `specs/project-switcher/spec.md`), проверка `openspec validate "
+    },
+    {
+      "stage": "baseline",
+      "attempt": 2,
+      "startedAt": "2026-11-27T14:31:15.424Z",
+      "status": "done",
+      "endedAt": "2026-11-27T14:31:15.424Z",
+      "summary": "Красные до задачи: тесты"
+    },
+    {
+      "stage": "gate1",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:31:15.428Z",
+      "status": "done",
+      "endedAt": "2026-11-27T14:31:16.244Z",
+      "summary": "Принято"
+    },
+    {
+      "stage": "implement",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:31:20.191Z",
+      "status": "done",
+      "model": "sonnet",
+      "tokens": {
+        "input": 8,
+        "output": 1344,
+        "cacheRead": 103648,
+        "cacheWrite": 22676,
+        "costUsd": 0.11452479999999998
+      },
+      "output": "Список проектов в меню «Project» теперь прокручивается, а «new project» остаётся под ним. Сборку фронта и линтер я не запускал: в рабочей копии нет `node_modules`.\n\nВ `front/src/App.vue` я сделал три правки:\n- Убрал `max-height=\"80vh\"` у `v-menu`, чтобы не получить две вложенные полосы прокрутки.\n- Обернул `v-for=\"p in projects\"` в `<div class=\"projects\">`. Пункты «new project» и «no projects available» остались после него.\n- Добавил в `<style scoped>` правило `.projects { max-height: 70vh; overflow-y: auto; }`.\n\nВ `tasks.md` отмечены пункты 1.1–1.3. Пункты раздела 2 остались открытыми: `npm run lint`, `npm run fmt`, ручная проверка меню на ~30 проектах и на 2–3 проектах, `go test ./...`. Бэкенд не менялся, так что Go-тесты здесь не нужны.\n\nВручную нужно проверить, что скролл появляется только при длинном списке, а на окне высотой около 500px меню не выходит за край.",
+      "endedAt": "2026-11-27T14:31:32.492Z",
+      "summary": "Список проектов в меню «Project» теперь прокручивается, а «new project» остаётся под ним. Сборку фронта и линтер я не запускал: в рабочей копии нет `node_module"
+    },
+    {
+      "stage": "tests",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:31:32.663Z",
+      "status": "done",
+      "endedAt": "2026-11-27T14:31:33.586Z",
+      "summary": "Линтер — как до задачи, тесты — как до задачи"
+    },
+    {
+      "stage": "review",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:31:32.664Z",
+      "status": "done",
+      "model": "opus",
+      "tokens": {
+        "input": 4,
+        "output": 2841,
+        "cacheRead": 45812,
+        "cacheWrite": 17359,
+        "costUsd": 0.2048704
+      },
+      "endedAt": "2026-11-27T14:31:59.803Z",
+      "summary": "Без блокирующих, заметок: 5"
+    },
+    {
+      "stage": "gate2",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:31:59.806Z",
+      "status": "done",
+      "endedAt": "2026-11-27T14:48:34.251Z",
+      "summary": "Принято"
+    },
+    {
+      "stage": "finish",
+      "attempt": 1,
+      "startedAt": "2026-11-27T14:48:34.314Z",
+      "status": "done",
+      "endedAt": "2026-11-27T14:48:34.502Z",
+      "summary": "Коммит в purpleflow/the-projects-selection-in-coroot-ui-7e3e"
+    }
+  ],
+  "planRetries": 0,
+  "implAttemptsUsed": 1,
+  "implAttemptsLimit": 3,
+  "tests": [
+    {
+      "at": "2026-11-27T14:31:33.585Z",
+      "command": "go vet ./... && go test ./...",
+      "passed": true,
+      "exitCode": 0,
+      "durationMs": 889,
+      "output": "$ go vet ./...\nmain.go:38:12: pattern static: no matching files found\n\n$ go test ./...\nFAIL\tgithub.com/coroot/coroot [setup failed]\n?   \tgithub.com/coroot/coroot/api\t[no test files]\n?   \tgithub.com/coroot/coroot/api/forms\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/alert\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/application\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/applications\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/cloud\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/dashboards\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/incident\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/inspections\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/logs\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/overview\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/profiling\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/roles\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/tracing\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/users\t[no test files]\n?   \tgithub.com/coroot/coroot/auditor\t[no test files]\nok  \tgithub.com/coroot/coroot/cache\t(cached)\nok  \tgithub.com/coroot/coroot/cache/chunk\t(cached)\n?   \tgithub.com/coroot/coroot/ch\t[no test files]\nok  \tgithub.com/coroot/coroot/clickhouse\t(cached)\n?   \tgithub.com/coroot/coroot/cloud\t[no test files]\n?   \tgithub.com/coroot/coroot/cloud-pricing\t[no test files]\nok  \tgithub.com/coroot/coroot/collector\t(cached)\n?   \tgithub.com/coroot/coroot/config\t[no test files]\n?   \tgithub.com/coroot/coroot/constructor\t[no test files]\nok  \tgithub.com/coroot/coroot/db\t(cached)\n?   \tgithub.com/coroot/coroot/front/node_modules/flatted/golang/pkg/flatted\t[no test files]\n?   \tgithub.com/coroot/coroot/grpc\t[no test files]\nok  \tgithub.com/coroot/coroot/model\t(cached)\n?   \tgithub.com/coroot/coroot/notifications\t[no test files]\nok  \tgithub.com/coroot/coroot/prom\t(cached)\nok  \tgithub.com/coroot/coroot/rbac\t(cached)\n?   \tgithub.com/coroot/coroot/stats\t[no test files]\nok  \tgithub.com/coroot/coroot/timeseries\t(cached)\nok  \tgithub.com/coroot/coroot/utils\t(cached)\nok  \tgithub.com/coroot/coroot/watchers\t(cached)\nFAIL\n\n# github.com/coroot/coroot\nmain.go:38:12: pattern static: no matching files found",
+      "checks": [
+        {
+          "kind": "lint",
+          "command": "go vet ./...",
+          "passed": false,
+          "exitCode": 1,
+          "durationMs": 395,
+          "output": "main.go:38:12: pattern static: no matching files found",
+          "preexisting": {
+            "before": null,
+            "after": null
+          }
+        },
+        {
+          "kind": "test",
+          "command": "go test ./...",
+          "passed": false,
+          "exitCode": 1,
+          "durationMs": 494,
+          "output": "FAIL\tgithub.com/coroot/coroot [setup failed]\n?   \tgithub.com/coroot/coroot/api\t[no test files]\n?   \tgithub.com/coroot/coroot/api/forms\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/alert\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/application\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/applications\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/cloud\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/dashboards\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/incident\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/inspections\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/logs\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/overview\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/profiling\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/roles\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/tracing\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/users\t[no test files]\n?   \tgithub.com/coroot/coroot/auditor\t[no test files]\nok  \tgithub.com/coroot/coroot/cache\t(cached)\nok  \tgithub.com/coroot/coroot/cache/chunk\t(cached)\n?   \tgithub.com/coroot/coroot/ch\t[no test files]\nok  \tgithub.com/coroot/coroot/clickhouse\t(cached)\n?   \tgithub.com/coroot/coroot/cloud\t[no test files]\n?   \tgithub.com/coroot/coroot/cloud-pricing\t[no test files]\nok  \tgithub.com/coroot/coroot/collector\t(cached)\n?   \tgithub.com/coroot/coroot/config\t[no test files]\n?   \tgithub.com/coroot/coroot/constructor\t[no test files]\nok  \tgithub.com/coroot/coroot/db\t(cached)\n?   \tgithub.com/coroot/coroot/front/node_modules/flatted/golang/pkg/flatted\t[no test files]\n?   \tgithub.com/coroot/coroot/grpc\t[no test files]\nok  \tgithub.com/coroot/coroot/model\t(cached)\n?   \tgithub.com/coroot/coroot/notifications\t[no test files]\nok  \tgithub.com/coroot/coroot/prom\t(cached)\nok  \tgithub.com/coroot/coroot/rbac\t(cached)\n?   \tgithub.com/coroot/coroot/stats\t[no test files]\nok  \tgithub.com/coroot/coroot/timeseries\t(cached)\nok  \tgithub.com/coroot/coroot/utils\t(cached)\nok  \tgithub.com/coroot/coroot/watchers\t(cached)\nFAIL\n\n# github.com/coroot/coroot\nmain.go:38:12: pattern static: no matching files found",
+          "preexisting": {
+            "before": null,
+            "after": null
+          }
+        }
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "at": "2026-11-27T14:31:59.803Z",
+      "blocking": [],
+      "notes": [
+        {
+          "file": "front/src/App.vue",
+          "line": 103,
+          "message": "Прокручивается теперь внутренний div.projects, а не .v-menu__content. Vuetify 2.7 при открытии меню подкручивает к активному пункту только сам .v-menu__content (calcScrollPosition/activeTile), поэтому текущий проект в конце длинного списка (например test27 на скриншоте) окажется за пределами видимой части списка. Инварианты это не нарушает, но пользователю придётся листать список, чтобы найти текущий проект. Можно доработать позже, например через scrollIntoView активного пункта при открытии меню."
+        },
+        {
+          "file": "front/src/App.vue",
+          "line": 103,
+          "message": "Когда проектов нет, div.projects остаётся в разметке пустым. Внешне это ни на что не влияет: высота нулевая, полосы прокрутки нет. Если нужна аккуратная разметка, можно добавить v-if=\"projects.length\"."
+        },
+        {
+          "file": "front/src/App.vue",
+          "line": 471,
+          "message": "Для .projects не задан цвет полосы прокрутки. В тёмном меню браузер может нарисовать светлую системную полосу. Не критично, но при ручной проверке стоит посмотреть на это; при необходимости можно добавить scrollbar-color."
+        },
+        {
+          "file": "openspec/changes/the-projects-selection-in-coroot-ui-7e3e/run.json",
+          "line": null,
+          "message": "Служебные файлы OpenSpec/PurpleFlow (run.json и др.) добавлены в индекс. Перед PR в основной репозиторий их нужно исключить."
+        },
+        {
+          "file": null,
+          "line": null,
+          "message": "Пункты проверки 2.1–2.4 в tasks.md не отмечены. Ручные проверки 2.2 и 2.3 нужно провести и отметить: длинный список, окно высотой около 500px, 2–3 проекта, readonly-пользователь. Автотестов фронта в проекте нет, и других подтверждений поведения не будет. По коду ожидаемое поведение получается: список занимает не больше 70vh, «new project» стоит ниже прокручиваемого блока, а Vuetify сдвигает меню, чтобы оно поместилось в окно."
+        }
+      ],
+      "plan": [
+        {
+          "task": "1.1 Убрать max-height=\"80vh\" у v-menu «Project»",
+          "status": "done",
+          "note": "front/src/App.vue:87 — атрибут удалён, остальные атрибуты (dark right offset-x tile) не тронуты"
+        },
+        {
+          "task": "1.2 Обернуть v-for проектов в <div class=\"projects\">, «new project»/«no projects available» после него",
+          "status": "done",
+          "note": "front/src/App.vue:103-110 — обёртка добавлена, пункты new project / no projects available остались после div с прежними условиями"
+        },
+        {
+          "task": "1.3 Правило .projects { max-height: 70vh; overflow-y: auto; } в <style scoped>",
+          "status": "done",
+          "note": "front/src/App.vue:471-474"
+        },
+        {
+          "task": "2.1 npm run lint и npm run fmt",
+          "status": "missing",
+          "note": "Пункт не отмечен. По коду форматирование похоже на корректное (строки короче 150 символов), но запуск ничем не подтверждён"
+        },
+        {
+          "task": "2.2 Сборка и ручная проверка с ~30 проектами и маленьким окном",
+          "status": "missing",
+          "note": "Пункт не отмечен, подтверждений ручной проверки нет"
+        },
+        {
+          "task": "2.3 Ручная проверка с 2–3 проектами и readonly-пользователем",
+          "status": "missing",
+          "note": "Пункт не отмечен, подтверждений ручной проверки нет"
+        },
+        {
+          "task": "2.4 go test ./...",
+          "status": "missing",
+          "note": "Пункт не отмечен. Бэкенд в диффе не менялся, тесты проверяются отдельно"
+        }
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate": "gate0",
+      "at": "2026-11-27T14:29:58.902Z",
+      "decision": "approve",
+      "comment": "With a scrollable project list, where should the \"new project\" item go? — i want the most simple implementation with less updates required to the code"
+    },
+    {
+      "gate": "gate1",
+      "at": "2026-11-27T14:31:16.244Z",
+      "decision": "approve",
+      "comment": "Автопилот"
+    },
+    {
+      "gate": "gate2",
+      "at": "2026-11-27T14:48:34.251Z",
+      "decision": "approve"
+    }
+  ],
+  "totals": {
+    "input": 36,
+    "output": 12418,
+    "cacheRead": 510123,
+    "cacheWrite": 92952,
+    "costUsd": 0.9796198
+  },
+  "attachments": [
+    "/home/oleg/.config/PurpleFlow/data/attachments/8d0fe976-81fb-43a2-a465-e5574fbf39e9/01-image.png"
+  ],
+  "createdAt": "2026-11-27T14:28:43.518Z",
+  "updatedAt": "2026-11-27T14:48:34.502Z",
+  "baseChecks": [
+    {
+      "kind": "lint",
+      "command": "go vet ./...",
+      "passed": false,
+      "exitCode": 1,
+      "durationMs": 402,
+      "output": "main.go:38:12: pattern static: no matching files found"
+    },
+    {
+      "kind": "test",
+      "command": "go test ./...",
+      "passed": false,
+      "exitCode": 1,
+      "durationMs": 4766,
+      "output": "FAIL\tgithub.com/coroot/coroot [setup failed]\n?   \tgithub.com/coroot/coroot/api\t[no test files]\n?   \tgithub.com/coroot/coroot/api/forms\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/alert\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/application\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/applications\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/cloud\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/dashboards\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/incident\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/inspections\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/logs\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/overview\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/profiling\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/roles\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/tracing\t[no test files]\n?   \tgithub.com/coroot/coroot/api/views/users\t[no test files]\n?   \tgithub.com/coroot/coroot/auditor\t[no test files]\nok  \tgithub.com/coroot/coroot/cache\t0.006s\nok  \tgithub.com/coroot/coroot/cache/chunk\t0.005s\n?   \tgithub.com/coroot/coroot/ch\t[no test files]\nok  \tgithub.com/coroot/coroot/clickhouse\t0.006s\n?   \tgithub.com/coroot/coroot/cloud\t[no test files]\n?   \tgithub.com/coroot/coroot/cloud-pricing\t[no test files]\nok  \tgithub.com/coroot/coroot/collector\t0.457s\n?   \tgithub.com/coroot/coroot/config\t[no test files]\n?   \tgithub.com/coroot/coroot/constructor\t[no test files]\nok  \tgithub.com/coroot/coroot/db\t0.004s\n?   \tgithub.com/coroot/coroot/front/node_modules/flatted/golang/pkg/flatted\t[no test files]\n?   \tgithub.com/coroot/coroot/grpc\t[no test files]\nok  \tgithub.com/coroot/coroot/model\t0.004s\n?   \tgithub.com/coroot/coroot/notifications\t[no test files]\nok  \tgithub.com/coroot/coroot/prom\t0.007s\nok  \tgithub.com/coroot/coroot/rbac\t0.004s\n?   \tgithub.com/coroot/coroot/stats\t[no test files]\nok  \tgithub.com/coroot/coroot/timeseries\t0.004s\nok  \tgithub.com/coroot/coroot/utils\t0.004s\nok  \tgithub.com/coroot/coroot/watchers\t0.008s\nFAIL\n\n# github.com/coroot/coroot\nmain.go:38:12: pattern static: no matching files found"
+    }
+  ],
+  "clarify": {
+    "questions": [
+      {
+        "q": "With a scrollable project list, where should the \"new project\" item go?",
+        "options": [
+          "Pin it below the scrolling area so it is always visible",
+          "Keep it as the last item in the list, reachable by scrolling to the bottom"
+        ],
+        "why": "This decides the markup: pinning it needs a separate block outside the scrolling list, while keeping it in the list only needs the list to scroll."
+      }
+    ],
+    "answers": [
+      {
+        "q": "With a scrollable project list, where should the \"new project\" item go?",
+        "a": "i want the most simple implementation with less updates required to the code"
+      }
+    ]
+  },
+  "titleFromPlan": true,
+  "executorSession": "a451308d-e98b-43fd-9c4f-4846ac728317",
+  "executorSessionAgent": "claude",
+  "changeSummary": {
+    "at": "2026-11-27T14:32:04.589Z",
+    "text": "**Что сделано**\n- Список проектов в меню выбора теперь прокручивается: сами проекты обёрнуты в блок с `max-height: 70vh` и `overflow-y: auto`.\n- Пункт «new project» вынесен за пределы прокручиваемого блока, поэтому всегда виден внизу меню, даже при большом числе проектов.\n- У `v-menu` убран `max-height=\"80vh\"`, так что ограничение высоты теперь только у списка проектов, а не у всего меню.\n\n**Что затронуто**\nUI: `front/src/App.vue` (шаблон меню проектов и scoped-стили).\n\n**На что посмотреть**\n- Высота `70vh` подобрана «на глаз»: на очень низких экранах меню (список + «new project») может всё равно не поместиться целиком.\n- Тестов или скриншотов в диффе нет, поведение скролла и видимость кнопки не проверены автоматически.",
+    "attempt": 1
+  },
+  "archivedPath": "/home/oleg/.config/PurpleFlow/data/worktrees/coroot-the-projects-selection-in-coroot-ui-7e3e/openspec/changes/archive/2026-11-27-the-projects-selection-in-coroot-ui-7e3e/run.json",
+  "finishedAt": "2026-11-27T14:48:34.502Z"
+}
